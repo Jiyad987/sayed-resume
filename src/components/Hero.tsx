@@ -18,7 +18,7 @@ const Hero = () => {
           <img
             src={sayedImage}
             alt="Sayed Muhammed"
-            className="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto object-cover border-4 border-primary/20 shadow-lg"
+            className="w-40 h-40 md:w-52 md:h-52 rounded-full mx-auto object-cover border-4 border-primary/20 shadow-lg"
           />
         </div>
 
