@@ -2,13 +2,18 @@ import { useEffect, useRef } from "react";
 
 const skillCategories = [
   {
-    title: "Product Management & Strategy",
+    title: "Product Management",
     skills: [
       { name: "Product Strategy & Roadmap", proficiency: 95 },
       { name: "Feature Prioritization", proficiency: 90 },
       { name: "Problem Discovery & Validation", proficiency: 92 },
       { name: "Go-to-Market Planning", proficiency: 88 },
       { name: "KPI & Metrics Tracking", proficiency: 90 },
+    ],
+  },
+  {
+    title: "Strategy & Growth",
+    skills: [
       { name: "Revenue & Monetization", proficiency: 85 },
       { name: "A/B Testing", proficiency: 88 },
       { name: "Customer-Centric Decisions", proficiency: 92 },
@@ -43,7 +48,6 @@ const skillCategories = [
       { name: "SQL & Excel", proficiency: 90 },
       { name: "Power BI & Tableau", proficiency: 85 },
       { name: "Funnel Analysis", proficiency: 88 },
-      { name: "Predictive Analytics", proficiency: 82 },
       { name: "Data-Driven Decisions", proficiency: 90 },
     ],
   },
@@ -54,6 +58,7 @@ const skillCategories = [
       { name: "AI Integration", proficiency: 85 },
       { name: "System & API Understanding", proficiency: 82 },
       { name: "Technical Trade-Offs", proficiency: 85 },
+      { name: "Workflow Optimization", proficiency: 87 },
     ],
   },
   {
@@ -63,6 +68,7 @@ const skillCategories = [
       { name: "Documentation & Storytelling", proficiency: 90 },
       { name: "Stakeholder Communication", proficiency: 92 },
       { name: "Gap Analysis", proficiency: 88 },
+      { name: "Solution Recommendation", proficiency: 90 },
     ],
   },
 ];
