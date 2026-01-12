@@ -11,18 +11,18 @@ const Contact = () => {
           I'm always open to discussing product management, analytics, or potential collaborations.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
           {/* Email */}
           <a
             href="mailto:sayedmuhammedjiyad13@gmail.com"
             className="bg-card border border-border rounded-lg p-6 flex items-center gap-4 transition-all hover:border-primary/50 group"
           >
-            <div className="p-3 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors">
+            <div className="p-3 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors flex-shrink-0">
               <Mail className="h-5 w-5 text-primary" />
             </div>
-            <div className="text-left">
+            <div className="text-left min-w-0">
               <p className="text-sm text-muted-foreground">Email</p>
-              <p className="text-foreground font-medium text-sm md:text-base break-all">
+              <p className="text-foreground font-medium text-sm truncate">
                 sayedmuhammedjiyad13@gmail.com
               </p>
             </div>
@@ -33,7 +33,7 @@ const Contact = () => {
             href="tel:+918714180384"
             className="bg-card border border-border rounded-lg p-6 flex items-center gap-4 transition-all hover:border-primary/50 group"
           >
-            <div className="p-3 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors">
+            <div className="p-3 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors flex-shrink-0">
               <Phone className="h-5 w-5 text-primary" />
             </div>
             <div className="text-left">
