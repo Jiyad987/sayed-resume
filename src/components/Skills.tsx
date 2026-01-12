@@ -171,32 +171,32 @@ const Skills = () => {
         {/* Skills Cards - Scrolling Right */}
         <div
           ref={skillsScrollRef}
-          className="flex gap-6 overflow-x-hidden cursor-grab mb-12"
+          className="flex gap-4 overflow-x-hidden cursor-grab mb-10"
           style={{ scrollBehavior: "auto" }}
         >
           {duplicatedCategories.map((category, categoryIndex) => (
             <div
               key={categoryIndex}
-              className="flex-shrink-0 w-80 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-6 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
+              className="flex-shrink-0 w-64 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-4 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
             >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                <h3 className="text-lg font-semibold text-foreground">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                <h3 className="text-sm font-semibold text-foreground">
                   {category.title}
                 </h3>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {category.skills.map((skill, skillIndex) => (
                   <div key={skillIndex} className="group">
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                    <div className="flex justify-between items-center mb-0.5">
+                      <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">
                         {skill.name}
                       </span>
-                      <span className="text-xs text-primary font-medium">
+                      <span className="text-[10px] text-primary font-medium">
                         {skill.proficiency}%
                       </span>
                     </div>
-                    <div className="h-1.5 bg-secondary/50 rounded-full overflow-hidden">
+                    <div className="h-1 bg-secondary/50 rounded-full overflow-hidden">
                       <div
                         className="h-full bg-gradient-to-r from-primary to-primary/60 rounded-full transition-all duration-500 group-hover:opacity-100 opacity-80"
                         style={{ width: `${skill.proficiency}%` }}
