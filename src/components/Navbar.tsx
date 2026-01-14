@@ -29,17 +29,17 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <a 
             href="#" 
-            className="text-xl font-bold text-foreground hover:text-primary transition-colors"
+            className="text-lg font-bold text-foreground hover:text-primary transition-colors whitespace-nowrap"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: "smooth" });
             }}
           >
-            Sayed Muhammed
+            Sayed Muhammed Jiyad
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.name}

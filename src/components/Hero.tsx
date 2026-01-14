@@ -1,5 +1,6 @@
-import { Github, Linkedin, Download, ArrowDown, Rocket } from "lucide-react";
+import { Github, Linkedin, Download, ArrowDown, Rocket, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import sayedImage from "@/assets/sayed-profile.png";
 
 const Hero = () => {
@@ -17,14 +18,22 @@ const Hero = () => {
         <div className="mb-8 animate-fade-in">
           <img
             src={sayedImage}
-            alt="Sayed Muhammed"
+            alt="Sayed Muhammed Jiyad"
             className="w-40 h-40 md:w-52 md:h-52 rounded-full mx-auto object-cover border-4 border-primary/20 shadow-lg"
           />
         </div>
 
+        {/* AI Badge */}
+        <div className="mb-4 animate-fade-in">
+          <Badge variant="secondary" className="px-4 py-1.5 text-sm">
+            <Sparkles className="w-4 h-4 mr-2" />
+            AI-Powered Developer
+          </Badge>
+        </div>
+
         {/* Name */}
-        <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-4 animate-fade-in">
-          Sayed Muhammed
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 animate-fade-in">
+          Sayed Muhammed Jiyad
         </h1>
 
         {/* Tagline */}
@@ -57,7 +66,7 @@ const Hero = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in">
           <Button asChild size="lg" className="gap-2">
-            <a href="/resume.pdf" download="Sayed_Muhammed_Resume.pdf">
+            <a href="/resume.pdf" download="Sayed_Muhammed_Jiyad_Resume.pdf">
               <Download className="h-4 w-4" />
               Download Resume
             </a>

@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ExternalLink, Github, FileText, BarChart3, Stethoscope, ShoppingBag, Image, Briefcase, GraduationCap, Trophy, ChevronLeft, ChevronRight } from "lucide-react";
+import { ExternalLink, Github, FileText, BarChart3, Stethoscope, ShoppingBag, Image, Briefcase, GraduationCap, Trophy, ChevronLeft, ChevronRight, Bot, Phone, TrendingUp, Smartphone, CreditCard, Plane, BookOpen, UtensilsCrossed, Headphones, DollarSign, Sparkles } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Dialog,
   DialogContent,
@@ -20,9 +21,14 @@ import templately4 from "@/assets/projects/templately-ui-4.jpeg";
 import templately5 from "@/assets/projects/templately-ui-5.jpeg";
 import cricketDashboard1 from "@/assets/projects/cricket-dashboard-1.jpg";
 import cricketDashboard2 from "@/assets/projects/cricket-dashboard-2.jpg";
+import zomatoUi1 from "@/assets/projects/zomato-ui-1.png";
+import zomatoUi2 from "@/assets/projects/zomato-ui-2.png";
+import templetelyLogo from "@/assets/projects/templately-logo.png";
+import eduwantsLogo from "@/assets/projects/eduwants-logo.jpeg";
 
 const templetelyImages = [templately1, templately2, templately3, templately4, templately5];
 const cricketImages = [cricketDashboard1, cricketDashboard2];
+const zomatoImages = [zomatoUi1, zomatoUi2];
 
 interface ProjectLink {
   demo?: string;
@@ -30,6 +36,7 @@ interface ProjectLink {
   competitive?: string;
   productOverview?: string;
   mvp?: string;
+  breakdown?: string;
 }
 
 interface Project {
@@ -39,6 +46,7 @@ interface Project {
   description: string;
   icon: React.ComponentType<{ className?: string }>;
   tags: string[];
+  tools?: string[];
   links?: ProjectLink;
   prdPath?: string;
   srsPath?: string;
@@ -46,16 +54,20 @@ interface Project {
   images?: string[];
   dashboardImage?: string;
   githubNote?: string;
+  logo?: string;
+  category: "web" | "mobile" | "data" | "prd" | "breakdown" | "automation";
 }
 
-const projects: Project[] = [
+// Web Apps
+const webApps: Project[] = [
   {
     id: 1,
     title: "Templately",
     subtitle: "Multi-Vendor Digital Product Marketplace",
-    description: "A creator-first digital marketplace where developers, designers, and automation builders can sell digital products. Features include WordPress plugins & themes, Notion templates, videography & photography presets, desktop software, and AI automation templates. Built with India-first approach supporting Razorpay & UPI payments.",
+    description: "A creator-first digital marketplace where developers, designers, and automation builders can sell digital products. Features include WordPress plugins & themes, Notion templates, videography & photography presets, desktop software, and AI automation templates.",
     icon: ShoppingBag,
     tags: ["Marketplace", "E-commerce", "React", "Supabase"],
+    tools: ["Lovable", "Supabase", "Antigravity", "TypeScript"],
     links: {
       demo: "https://buy-bright-sell.lovable.app",
       github: "https://github.com/developer-zayed/digital-marketplace-hub",
@@ -64,89 +76,76 @@ const projects: Project[] = [
     },
     prdPath: "/documents/prd-templately.pdf",
     images: templetelyImages,
+    logo: templetelyLogo,
+    category: "web",
   },
   {
     id: 2,
     title: "Warba ERP",
     subtitle: "Medical Equipment & Supplies Management",
-    description: "Comprehensive ERP platform for managing medical equipment lifecycle from installation to relocation. Features include complete equipment database with maintenance history, preventive & emergency maintenance scheduling, engineer performance tracking, and automated notifications for pending PMs.",
+    description: "Comprehensive ERP platform for managing medical equipment lifecycle from installation to relocation. Features include complete equipment database with maintenance history, preventive & emergency maintenance scheduling, and engineer performance tracking.",
     icon: Stethoscope,
-    tags: ["ERP", "Healthcare", "Equipment Management", "Dashboard"],
+    tags: ["ERP", "Healthcare", "Equipment Management"],
+    tools: ["React", "Antigravity", "Python"],
     links: {
       mvp: "https://connect-build-launch.lovable.app",
     },
     srsPath: "/documents/warba-srs.docx",
     githubNote: "Available on request",
-    srsContent: `
-## Adjustments to SRS Proposal
-
-### 1. User Roles and Access
-- Only two roles: Admin and Biomedical Engineer
-- No technician or user roles required
-
-### 2. Workflow Simplification
-- PM and EM follow simple status flow: Pending → In Progress → Completed
-- Multi-level approval stages eliminated
-
-### 3. Core Objective – Equipment Database
-- Complete database of all installed equipment
-- Full lifecycle details: installation, maintenance, software updates, parts replaced, relocation history
-- Single window view for complete equipment history
-
-### 4. Notifications and Follow-up
-- Automated notifications for pending or overdue PMs
-- Monthly/quarterly scheduling based on contract terms
-
-### 5. PM Tasks Linkage
-- Tasks linked to equipment group and assigned engineer
-- Engineers can view and update their assigned tasks
-
-### 6. Admin Dashboard
-- Monitor engineer performance and activities
-- KPIs: Total PMs completed, pending/delayed PMs, response time, service turnaround
-
-### Phase 2 – Future Enhancements
-- Spare parts and consumable inventory
-- Invoice generation
-- Labor hours and cost tracking
-    `,
+    srsContent: `## Adjustments to SRS Proposal\n\n### 1. User Roles and Access\n- Only two roles: Admin and Biomedical Engineer\n\n### 2. Workflow Simplification\n- PM and EM follow simple status flow: Pending → In Progress → Completed\n\n### 3. Core Objective – Equipment Database\n- Complete database of all installed equipment with full lifecycle details`,
+    category: "web",
   },
   {
     id: 3,
-    title: "Amazon Sales Dashboard",
-    subtitle: "End-to-End Sales Analytics System",
-    description: "Comprehensive sales analytics system built on Amazon product data featuring interactive dashboards and an AI chatbot for natural-language querying. Enables data-driven decision making through visualizations and conversational insights.",
-    icon: BarChart3,
-    tags: ["Data Analytics", "AI Chatbot", "Dashboard", "Python"],
-    links: {
-      github: "https://github.com/Jiyad987/Amazon_Sales_Dashboard",
-    },
-    dashboardImage: amazonDashboard,
-  },
-  {
-    id: 4,
     title: "Career Boost",
     subtitle: "AI-Powered Career Platform",
-    description: "An all-in-one AI-powered career platform that helps job seekers build ATS-optimized resumes, find relevant jobs, analyze job fit, prepare for interviews, optimize LinkedIn profiles, and access practical career insights—all in one place.",
+    description: "An all-in-one AI-powered career platform that helps job seekers build ATS-optimized resumes, find relevant jobs, analyze job fit, prepare for interviews, optimize LinkedIn profiles, and access practical career insights.",
     icon: Briefcase,
     tags: ["AI", "Career", "Resume Builder", "Job Search"],
+    tools: ["Lovable", "OpenAI API"],
     links: {
       mvp: "https://carrerboost.lovable.app",
       github: "https://github.com/Jiyad987/carrerboost.git",
     },
+    category: "web",
   },
+];
+
+// Mobile Apps
+const mobileApps: Project[] = [
   {
-    id: 5,
+    id: 4,
     title: "EduWants",
     subtitle: "AI-Powered Education & Career Ecosystem",
     description: "A unified education and career platform designed for students across their entire academic journey. Features AI-generated notes, PYQs with solutions, global course & college discovery, skill development marketplace, and internship/job support.",
     icon: GraduationCap,
     tags: ["EdTech", "AI", "Mobile App", "Career"],
+    tools: ["React Native", "Supabase", "OpenAI"],
     links: {
       mvp: "https://studypeak-educationa-xfuv.bolt.host",
     },
     prdPath: "/documents/eduwants-prd.pdf",
     srsPath: "/documents/eduwants-srs.docx",
+    logo: eduwantsLogo,
+    category: "mobile",
+  },
+];
+
+// Data Analytics
+const dataProjects: Project[] = [
+  {
+    id: 5,
+    title: "Amazon Sales Dashboard",
+    subtitle: "End-to-End Sales Analytics System",
+    description: "Comprehensive sales analytics system built on Amazon product data featuring interactive dashboards and an AI chatbot for natural-language querying. Enables data-driven decision making through visualizations and conversational insights.",
+    icon: BarChart3,
+    tags: ["Data Analytics", "AI Chatbot", "Dashboard"],
+    tools: ["Excel", "Power BI", "Python", "SQL", "OpenAI API"],
+    links: {
+      github: "https://github.com/Jiyad987/Amazon_Sales_Dashboard",
+    },
+    dashboardImage: amazonDashboard,
+    category: "data",
   },
   {
     id: 6,
@@ -154,11 +153,142 @@ const projects: Project[] = [
     subtitle: "Sports Analytics & Best 11 Selection",
     description: "Built an end-to-end sports analytics pipeline using web scraping, Python, and Power BI to select a data-driven 'Best 11' team based on performance metrics from the 2022 T20 World Cup.",
     icon: Trophy,
-    tags: ["Data Analytics", "Power BI", "Python", "Web Scraping"],
+    tags: ["Data Analytics", "Power BI", "Web Scraping"],
+    tools: ["Excel", "Power BI", "Python", "SQL", "OpenAI API"],
     links: {
       github: "https://github.com/developer-zayed",
     },
     images: cricketImages,
+    category: "data",
+  },
+];
+
+// PRD Projects
+const prdProjects: Project[] = [
+  {
+    id: 7,
+    title: "Zomato Streak",
+    subtitle: "Gamified Retention Feature",
+    description: "Product Requirements Document for a new gamification feature designed to significantly improve user retention on Zomato through streak rewards, milestone achievements, and tiered loyalty levels.",
+    icon: UtensilsCrossed,
+    tags: ["PRD", "Gamification", "Retention", "Food Delivery"],
+    prdPath: "/documents/zomato-streak-prd.pdf",
+    images: zomatoImages,
+    category: "prd",
+  },
+  {
+    id: 8,
+    title: "Kuku FM",
+    subtitle: "Engagement & Community Features",
+    description: "PRD outlining new features for Kuku FM aimed at increasing engagement via audio playtime and generating revenue through innovative alternatives that enhance user stickiness and foster community.",
+    icon: Headphones,
+    tags: ["PRD", "Audio Platform", "Engagement", "Community"],
+    prdPath: "/documents/kukufm-prd.pdf",
+    category: "prd",
+  },
+  {
+    id: 9,
+    title: "INDmoney",
+    subtitle: "Financial Navigator Feature",
+    description: "PRD for the INDmoney Financial Navigator feature designed to enhance financial literacy, user engagement, and investment confidence through personalized guidance and interactive tools.",
+    icon: DollarSign,
+    tags: ["PRD", "FinTech", "Financial Literacy", "Investments"],
+    prdPath: "/documents/indmoney-prd.pdf",
+    category: "prd",
+  },
+];
+
+// Product Breakdowns
+const breakdownProjects: Project[] = [
+  {
+    id: 10,
+    title: "INDmoney",
+    subtitle: "Financial Platform Analysis",
+    description: "Comprehensive product breakdown analyzing INDmoney's super finance app features, user journey, monetization strategies, and growth mechanics.",
+    icon: DollarSign,
+    tags: ["Product Breakdown", "FinTech", "Investment"],
+    links: {
+      breakdown: "https://indmoney-financial-partn-iylutng.gamma.site/",
+    },
+    category: "breakdown",
+  },
+  {
+    id: 11,
+    title: "CRED",
+    subtitle: "Product Teardown",
+    description: "Deep-dive analysis of CRED's product strategy, unique positioning in the credit card payments space, and premium user experience design.",
+    icon: CreditCard,
+    tags: ["Product Breakdown", "FinTech", "Payments"],
+    links: {
+      breakdown: "https://cred-product-teardown-si-ah1pgyb.gamma.site/",
+    },
+    category: "breakdown",
+  },
+  {
+    id: 12,
+    title: "PhonePe",
+    subtitle: "AARRR Framework Breakdown",
+    description: "Detailed AARRR (Pirate Metrics) framework analysis of PhonePe's growth strategy, covering Acquisition, Activation, Retention, Referral, and Revenue.",
+    icon: Smartphone,
+    tags: ["Product Breakdown", "AARRR", "Payments", "Growth"],
+    links: {
+      breakdown: "https://phonepe-unpacking-growth-51y1p30.gamma.site/",
+    },
+    category: "breakdown",
+  },
+  {
+    id: 13,
+    title: "MakeMyTrip",
+    subtitle: "Product Teardown",
+    description: "Comprehensive analysis of MakeMyTrip's product ecosystem, booking flows, personalization strategies, and travel tech innovations.",
+    icon: Plane,
+    tags: ["Product Breakdown", "Travel Tech", "OTA"],
+    links: {
+      breakdown: "https://makemytrip-product-teard-c1ke7o8.gamma.site/",
+    },
+    category: "breakdown",
+  },
+  {
+    id: 14,
+    title: "Kissa",
+    subtitle: "Bedtime Stories Analysis",
+    description: "Product breakdown of Kissa's bedtime stories app, analyzing content strategy, user engagement mechanics, and audio content delivery.",
+    icon: BookOpen,
+    tags: ["Product Breakdown", "Content", "Audio"],
+    links: {
+      breakdown: "https://kissa-bedtime-stories-th-3zg93tl.gamma.site/",
+    },
+    category: "breakdown",
+  },
+];
+
+// AI Automations
+const automationProjects: Project[] = [
+  {
+    id: 15,
+    title: "Stock Market AI Agent",
+    subtitle: "Real-time Stock Price Alerts",
+    description: "Built an AI agent using n8n and Telegram API to provide real-time stock market price updates and intelligent alerts for investment decisions.",
+    icon: TrendingUp,
+    tags: ["AI Agent", "n8n", "Telegram", "Stocks"],
+    tools: ["n8n", "Telegram API", "LLMs"],
+    links: {
+      github: "https://github.com/Jiyad987/stockmarket-ai-agent",
+    },
+    category: "automation",
+  },
+  {
+    id: 16,
+    title: "AI Voice Call Agent",
+    subtitle: "Automated Business Call Handler",
+    description: "AI Voice Assistant that answers missed business calls automatically. Validates phone numbers, books appointments, logs customer data into spreadsheets via webhooks, and handles natural conversations.",
+    icon: Phone,
+    tags: ["AI Agent", "Voice AI", "Automation", "n8n"],
+    tools: ["Retell AI", "n8n", "Cal.com", "LLMs", "Webhooks"],
+    links: {
+      github: "https://github.com/Jiyad987/ai-voice-agent",
+    },
+    category: "automation",
   },
 ];
 
@@ -251,247 +381,236 @@ const DashboardImageDialog = ({ image, title }: { image: string; title: string }
   );
 };
 
+const ProjectCard = ({ project }: { project: Project }) => {
+  return (
+    <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 bg-card flex flex-col h-full">
+      <CardHeader>
+        <div className="flex items-center gap-3 mb-2">
+          {project.logo ? (
+            <img src={project.logo} alt={`${project.title} logo`} className="w-10 h-10 rounded-lg object-cover" />
+          ) : (
+            <div className="p-2 rounded-lg bg-primary/10">
+              <project.icon className="w-6 h-6 text-primary" />
+            </div>
+          )}
+          <div className="flex-1">
+            <CardTitle className="text-lg">{project.title}</CardTitle>
+            <CardDescription className="text-sm">{project.subtitle}</CardDescription>
+          </div>
+        </div>
+        <div className="flex flex-wrap gap-1.5 mt-2">
+          {project.tags.slice(0, 4).map((tag) => (
+            <Badge key={tag} variant="secondary" className="text-xs">
+              {tag}
+            </Badge>
+          ))}
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-4 flex-1 flex flex-col">
+        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+          {project.description}
+        </p>
+
+        {project.tools && project.tools.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            <span className="text-xs text-muted-foreground font-medium">Tools:</span>
+            {project.tools.map((tool) => (
+              <Badge key={tool} variant="outline" className="text-xs">
+                {tool}
+              </Badge>
+            ))}
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-2 pt-2 mt-auto">
+          {project.links?.demo && (
+            <Button variant="outline" size="sm" asChild>
+              <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-1" />
+                Live Demo
+              </a>
+            </Button>
+          )}
+
+          {project.links?.mvp && (
+            <Button variant="outline" size="sm" asChild>
+              <a href={project.links.mvp} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="w-4 h-4 mr-1" />
+                View MVP
+              </a>
+            </Button>
+          )}
+
+          {project.links?.productOverview && (
+            <Button variant="outline" size="sm" asChild>
+              <a href={project.links.productOverview} target="_blank" rel="noopener noreferrer">
+                <FileText className="w-4 h-4 mr-1" />
+                Product Overview
+              </a>
+            </Button>
+          )}
+
+          {project.links?.breakdown && (
+            <Button variant="outline" size="sm" asChild>
+              <a href={project.links.breakdown} target="_blank" rel="noopener noreferrer">
+                <BarChart3 className="w-4 h-4 mr-1" />
+                View Breakdown
+              </a>
+            </Button>
+          )}
+
+          {project.links?.github && (
+            <Button variant="outline" size="sm" asChild>
+              <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                <Github className="w-4 h-4 mr-1" />
+                GitHub
+              </a>
+            </Button>
+          )}
+
+          {project.githubNote && (
+            <Badge variant="outline" className="text-xs">
+              <Github className="w-3 h-3 mr-1" />
+              {project.githubNote}
+            </Badge>
+          )}
+
+          {project.images && project.images.length > 0 && (
+            <ImageGallery images={project.images} title={project.title} />
+          )}
+
+          {project.dashboardImage && (
+            <DashboardImageDialog image={project.dashboardImage} title={project.title} />
+          )}
+
+          {project.prdPath && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <FileText className="w-4 h-4 mr-1" />
+                  PRD
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl max-h-[80vh]">
+                <DialogHeader>
+                  <DialogTitle>Product Requirements Document - {project.title}</DialogTitle>
+                </DialogHeader>
+                <iframe
+                  src={project.prdPath}
+                  className="w-full h-[60vh] rounded-lg border"
+                  title="PRD Document"
+                />
+              </DialogContent>
+            </Dialog>
+          )}
+
+          {project.links?.competitive && (
+            <Button variant="outline" size="sm" asChild>
+              <a href={project.links.competitive} target="_blank" rel="noopener noreferrer">
+                <BarChart3 className="w-4 h-4 mr-1" />
+                Competitive Analysis
+              </a>
+            </Button>
+          )}
+
+          {project.srsPath && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <FileText className="w-4 h-4 mr-1" />
+                  SRS
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>System Requirements - {project.title}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 text-sm text-muted-foreground">
+                  <p>View the complete SRS document below:</p>
+                  <Button variant="outline" size="sm" asChild>
+                    <a href={project.srsPath} download>
+                      <FileText className="w-4 h-4 mr-1" />
+                      Download SRS
+                    </a>
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+const ProjectGrid = ({ projects }: { projects: Project[] }) => (
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {projects.map((project) => (
+      <ProjectCard key={project.id} project={project} />
+    ))}
+  </div>
+);
+
 const Projects = () => {
   return (
     <section id="projects" className="py-20 px-4 bg-muted/30">
-      <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-16">
+      <div className="container mx-auto max-w-7xl">
+        <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Featured Projects
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Showcasing product management work across marketplaces, healthcare ERP, EdTech, and data analytics
+            Showcasing product management work across web apps, mobile apps, data analytics, PRDs, and AI automations
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project) => (
-            <Card key={project.id} className="group hover:shadow-lg transition-all duration-300 border-border/50 bg-card flex flex-col">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 rounded-lg bg-primary/10">
-                    <project.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-xl">{project.title}</CardTitle>
-                    <CardDescription className="text-sm">{project.subtitle}</CardDescription>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {project.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="text-xs">
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4 flex-1 flex flex-col">
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {project.description}
-                </p>
+        <Tabs defaultValue="web" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-8 h-auto gap-1">
+            <TabsTrigger value="web" className="text-xs sm:text-sm py-2">
+              <Sparkles className="w-4 h-4 mr-1 hidden sm:inline" />
+              Web Apps
+            </TabsTrigger>
+            <TabsTrigger value="mobile" className="text-xs sm:text-sm py-2">
+              <Smartphone className="w-4 h-4 mr-1 hidden sm:inline" />
+              Mobile Apps
+            </TabsTrigger>
+            <TabsTrigger value="data" className="text-xs sm:text-sm py-2">
+              <BarChart3 className="w-4 h-4 mr-1 hidden sm:inline" />
+              Data Analysis
+            </TabsTrigger>
+            <TabsTrigger value="prd" className="text-xs sm:text-sm py-2">
+              <FileText className="w-4 h-4 mr-1 hidden sm:inline" />
+              PRDs
+            </TabsTrigger>
+            <TabsTrigger value="breakdown" className="text-xs sm:text-sm py-2">
+              <TrendingUp className="w-4 h-4 mr-1 hidden sm:inline" />
+              Breakdowns
+            </TabsTrigger>
+            <TabsTrigger value="automation" className="text-xs sm:text-sm py-2">
+              <Bot className="w-4 h-4 mr-1 hidden sm:inline" />
+              AI Automations
+            </TabsTrigger>
+          </TabsList>
 
-                <div className="flex flex-wrap gap-2 pt-2 mt-auto">
-                  {project.links?.demo && (
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-1" />
-                        Live Demo
-                      </a>
-                    </Button>
-                  )}
-
-                  {project.links?.mvp && (
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={project.links.mvp} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-1" />
-                        View MVP
-                      </a>
-                    </Button>
-                  )}
-
-                  {project.links?.productOverview && (
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={project.links.productOverview} target="_blank" rel="noopener noreferrer">
-                        <FileText className="w-4 h-4 mr-1" />
-                        Product Overview
-                      </a>
-                    </Button>
-                  )}
-
-                  {project.links?.github && (
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4 mr-1" />
-                        GitHub
-                      </a>
-                    </Button>
-                  )}
-
-                  {project.githubNote && (
-                    <Badge variant="outline" className="text-xs">
-                      <Github className="w-3 h-3 mr-1" />
-                      {project.githubNote}
-                    </Badge>
-                  )}
-
-                  {project.images && project.images.length > 0 && (
-                    <ImageGallery images={project.images} title={project.title} />
-                  )}
-
-                  {project.dashboardImage && (
-                    <DashboardImageDialog image={project.dashboardImage} title={project.title} />
-                  )}
-
-                  {project.prdPath && (
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="outline" size="sm">
-                          <FileText className="w-4 h-4 mr-1" />
-                          PRD
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-4xl max-h-[80vh]">
-                        <DialogHeader>
-                          <DialogTitle>Product Requirements Document - {project.title}</DialogTitle>
-                        </DialogHeader>
-                        <iframe
-                          src={project.prdPath}
-                          className="w-full h-[60vh] rounded-lg border"
-                          title="PRD Document"
-                        />
-                      </DialogContent>
-                    </Dialog>
-                  )}
-
-                  {project.links?.competitive && (
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={project.links.competitive} target="_blank" rel="noopener noreferrer">
-                        <BarChart3 className="w-4 h-4 mr-1" />
-                        Competitive Analysis
-                      </a>
-                    </Button>
-                  )}
-
-                  {project.srsContent && (
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="outline" size="sm">
-                          <FileText className="w-4 h-4 mr-1" />
-                          SRS
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-                        <DialogHeader>
-                          <DialogTitle>System Requirements Specification - {project.title}</DialogTitle>
-                        </DialogHeader>
-                        <div className="prose prose-sm dark:prose-invert max-w-none">
-                          <div className="space-y-4 text-sm text-muted-foreground">
-                            <h3 className="text-lg font-semibold text-foreground">Adjustments to SRS Proposal</h3>
-                            
-                            <div>
-                              <h4 className="font-medium text-foreground">1. User Roles and Access</h4>
-                              <ul className="list-disc pl-5 mt-1">
-                                <li>Only two roles: Admin and Biomedical Engineer</li>
-                                <li>No technician or user roles required</li>
-                              </ul>
-                            </div>
-
-                            <div>
-                              <h4 className="font-medium text-foreground">2. Workflow Simplification</h4>
-                              <ul className="list-disc pl-5 mt-1">
-                                <li>PM and EM follow simple status flow: Pending → In Progress → Completed</li>
-                                <li>Multi-level approval stages eliminated</li>
-                              </ul>
-                            </div>
-
-                            <div>
-                              <h4 className="font-medium text-foreground">3. Core Objective – Equipment Database</h4>
-                              <ul className="list-disc pl-5 mt-1">
-                                <li>Complete database of all installed equipment</li>
-                                <li>Full lifecycle details: installation, maintenance, software updates, parts replaced, relocation history</li>
-                                <li>Single window view for complete equipment history</li>
-                              </ul>
-                            </div>
-
-                            <div>
-                              <h4 className="font-medium text-foreground">4. Notifications and Follow-up</h4>
-                              <ul className="list-disc pl-5 mt-1">
-                                <li>Automated notifications for pending or overdue PMs</li>
-                                <li>Monthly/quarterly scheduling based on contract terms</li>
-                              </ul>
-                            </div>
-
-                            <div>
-                              <h4 className="font-medium text-foreground">5. PM Tasks Linkage</h4>
-                              <ul className="list-disc pl-5 mt-1">
-                                <li>Tasks linked to equipment group and assigned engineer</li>
-                                <li>Engineers can view and update their assigned tasks</li>
-                              </ul>
-                            </div>
-
-                            <div>
-                              <h4 className="font-medium text-foreground">6. Admin Dashboard</h4>
-                              <ul className="list-disc pl-5 mt-1">
-                                <li>Monitor engineer performance and activities</li>
-                                <li>KPIs: Total PMs completed, pending/delayed PMs, response time, service turnaround</li>
-                              </ul>
-                            </div>
-
-                            <div>
-                              <h4 className="font-medium text-foreground">Phase 2 – Future Enhancements</h4>
-                              <ul className="list-disc pl-5 mt-1">
-                                <li>Spare parts and consumable inventory</li>
-                                <li>Invoice generation</li>
-                                <li>Labor hours and cost tracking</li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="pt-4 border-t">
-                          <Button variant="outline" size="sm" asChild>
-                            <a href="/documents/warba-srs.docx" download>
-                              <FileText className="w-4 h-4 mr-1" />
-                              Download Full Document
-                            </a>
-                          </Button>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  )}
-
-                  {project.srsPath && !project.srsContent && (
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="outline" size="sm">
-                          <FileText className="w-4 h-4 mr-1" />
-                          SRS
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-4xl max-h-[80vh]">
-                        <DialogHeader>
-                          <DialogTitle>System Requirements Specification - {project.title}</DialogTitle>
-                        </DialogHeader>
-                        <div className="space-y-4">
-                          <div className="prose prose-sm dark:prose-invert max-w-none text-muted-foreground">
-                            <p>This document defines the complete functional and non-functional requirements for {project.title}.</p>
-                          </div>
-                          <div className="pt-4 border-t">
-                            <Button variant="outline" size="sm" asChild>
-                              <a href={project.srsPath} download>
-                                <FileText className="w-4 h-4 mr-1" />
-                                Download SRS Document
-                              </a>
-                            </Button>
-                          </div>
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+          <TabsContent value="web">
+            <ProjectGrid projects={webApps} />
+          </TabsContent>
+          <TabsContent value="mobile">
+            <ProjectGrid projects={mobileApps} />
+          </TabsContent>
+          <TabsContent value="data">
+            <ProjectGrid projects={dataProjects} />
+          </TabsContent>
+          <TabsContent value="prd">
+            <ProjectGrid projects={prdProjects} />
+          </TabsContent>
+          <TabsContent value="breakdown">
+            <ProjectGrid projects={breakdownProjects} />
+          </TabsContent>
+          <TabsContent value="automation">
+            <ProjectGrid projects={automationProjects} />
+          </TabsContent>
+        </Tabs>
       </div>
     </section>
   );
