@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, Github, FileText, BarChart3, Stethoscope, ShoppingBag, Image, Briefcase, GraduationCap, Trophy, ChevronLeft, ChevronRight, Bot, Phone, TrendingUp, Smartphone, CreditCard, Plane, BookOpen, UtensilsCrossed, Headphones, DollarSign, Sparkles } from "lucide-react";
+import { ExternalLink, Github, FileText, BarChart3, Stethoscope, ShoppingBag, Image, Briefcase, GraduationCap, Trophy, ChevronLeft, ChevronRight, Bot, Phone, TrendingUp, Smartphone, CreditCard, Plane, BookOpen, UtensilsCrossed, Headphones, DollarSign, Sparkles, Globe } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -55,11 +55,11 @@ interface Project {
   dashboardImage?: string;
   githubNote?: string;
   logo?: string;
-  category: "web" | "mobile" | "data" | "prd" | "breakdown" | "automation";
+  category: "apps" | "data" | "prd" | "breakdown" | "automation";
 }
 
-// Web Apps
-const webApps: Project[] = [
+// Web & Mobile Apps (Combined)
+const appProjects: Project[] = [
   {
     id: 1,
     title: "Templately",
@@ -77,7 +77,7 @@ const webApps: Project[] = [
     prdPath: "/documents/prd-templately.pdf",
     images: templetelyImages,
     logo: templetelyLogo,
-    category: "web",
+    category: "apps",
   },
   {
     id: 2,
@@ -93,7 +93,7 @@ const webApps: Project[] = [
     srsPath: "/documents/warba-srs.docx",
     githubNote: "Available on request",
     srsContent: `## Adjustments to SRS Proposal\n\n### 1. User Roles and Access\n- Only two roles: Admin and Biomedical Engineer\n\n### 2. Workflow Simplification\n- PM and EM follow simple status flow: Pending → In Progress → Completed\n\n### 3. Core Objective – Equipment Database\n- Complete database of all installed equipment with full lifecycle details`,
-    category: "web",
+    category: "apps",
   },
   {
     id: 3,
@@ -107,12 +107,8 @@ const webApps: Project[] = [
       mvp: "https://carrerboost.lovable.app",
       github: "https://github.com/Jiyad987/carrerboost.git",
     },
-    category: "web",
+    category: "apps",
   },
-];
-
-// Mobile Apps
-const mobileApps: Project[] = [
   {
     id: 4,
     title: "EduWants",
@@ -127,7 +123,7 @@ const mobileApps: Project[] = [
     prdPath: "/documents/eduwants-prd.pdf",
     srsPath: "/documents/eduwants-srs.docx",
     logo: eduwantsLogo,
-    category: "mobile",
+    category: "apps",
   },
 ];
 
@@ -383,7 +379,7 @@ const DashboardImageDialog = ({ image, title }: { image: string; title: string }
 
 const ProjectCard = ({ project }: { project: Project }) => {
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 bg-card flex flex-col h-full">
+    <Card className="group hover:shadow-lg transition-all duration-300 border-border/50 bg-card flex flex-col h-full hover:-translate-y-1">
       <CardHeader>
         <div className="flex items-center gap-3 mb-2">
           {project.logo ? (
@@ -560,19 +556,15 @@ const Projects = () => {
             Featured Projects
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Showcasing product management work across web apps, mobile apps, data analytics, PRDs, and AI automations
+            Showcasing product management work across apps, data analytics, PRDs, product breakdowns, and AI automations
           </p>
         </div>
 
-        <Tabs defaultValue="web" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-8 h-auto gap-1">
-            <TabsTrigger value="web" className="text-xs sm:text-sm py-2">
-              <Sparkles className="w-4 h-4 mr-1 hidden sm:inline" />
-              Web Apps
-            </TabsTrigger>
-            <TabsTrigger value="mobile" className="text-xs sm:text-sm py-2">
-              <Smartphone className="w-4 h-4 mr-1 hidden sm:inline" />
-              Mobile Apps
+        <Tabs defaultValue="apps" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-5 mb-8 h-auto gap-1">
+            <TabsTrigger value="apps" className="text-xs sm:text-sm py-2">
+              <Globe className="w-4 h-4 mr-1 hidden sm:inline" />
+              Apps
             </TabsTrigger>
             <TabsTrigger value="data" className="text-xs sm:text-sm py-2">
               <BarChart3 className="w-4 h-4 mr-1 hidden sm:inline" />
@@ -592,11 +584,8 @@ const Projects = () => {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="web">
-            <ProjectGrid projects={webApps} />
-          </TabsContent>
-          <TabsContent value="mobile">
-            <ProjectGrid projects={mobileApps} />
+          <TabsContent value="apps">
+            <ProjectGrid projects={appProjects} />
           </TabsContent>
           <TabsContent value="data">
             <ProjectGrid projects={dataProjects} />
