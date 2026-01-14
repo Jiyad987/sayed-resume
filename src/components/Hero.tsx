@@ -2,8 +2,12 @@ import { Github, Linkedin, Download, ArrowDown, Rocket, Sparkles } from "lucide-
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import sayedImage from "@/assets/sayed-profile.png";
+import Silk from "@/components/Silk";
+import { useTheme } from "@/hooks/use-theme";
 
 const Hero = () => {
+  const { theme } = useTheme();
+  
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -12,8 +16,20 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center pt-16 px-4">
-      <div className="container mx-auto max-w-4xl text-center">
+    <section className="min-h-screen flex items-center justify-center pt-16 px-4 relative overflow-hidden">
+      {/* Silk Background Animation */}
+      <div className="absolute inset-0 z-0">
+        <Silk
+          speed={5}
+          scale={1}
+          color={theme === 'dark' ? "#7B7481" : "#A8A4B0"}
+          noiseIntensity={1.5}
+          rotation={0}
+        />
+      </div>
+
+      {/* Content */}
+      <div className="container mx-auto max-w-4xl text-center relative z-10">
         {/* Profile Image */}
         <div className="mb-8 animate-fade-in">
           <img
@@ -32,7 +48,7 @@ const Hero = () => {
         </div>
 
         {/* Name */}
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 animate-fade-in">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 animate-fade-in">
           Sayed Muhammed Jiyad
         </h1>
 
