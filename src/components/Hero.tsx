@@ -29,17 +29,18 @@ const Hero = () => {
 
       {/* Content */}
       <div className="container mx-auto max-w-4xl text-center relative z-10">
-        {/* Profile Image */}
-        <div className="mb-8 animate-fade-in">
+        {/* Profile Image with Glow */}
+        <div className="mb-8 animate-fade-in relative">
+          <div className="absolute inset-0 w-40 h-40 md:w-52 md:h-52 mx-auto rounded-full bg-primary/30 blur-2xl animate-pulse" />
           <img
             src={sayedImage}
             alt="Sayed Muhammed Jiyad"
-            className="w-40 h-40 md:w-52 md:h-52 rounded-full mx-auto object-cover border-4 border-primary/20 shadow-lg ring-2 ring-primary/10"
+            className="relative w-40 h-40 md:w-52 md:h-52 rounded-full mx-auto object-cover border-4 border-primary/30 shadow-2xl ring-4 ring-primary/20"
           />
         </div>
 
-        {/* Name */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 animate-fade-in">
+        {/* Name with Gradient */}
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 animate-fade-in bg-gradient-to-r from-primary via-purple-400 to-primary bg-clip-text text-transparent">
           Sayed Muhammed Jiyad
         </h1>
 
