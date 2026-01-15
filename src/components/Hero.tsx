@@ -1,12 +1,9 @@
-import { Github, Linkedin, Download, ArrowDown, Rocket, Sparkles } from "lucide-react";
+import { Github, Linkedin, Download, ArrowDown, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import sayedImage from "@/assets/sayed-profile.png";
 import Silk from "@/components/Silk";
-import { useTheme } from "@/hooks/use-theme";
 
 const Hero = () => {
-  const { theme } = useTheme();
   
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -16,16 +13,18 @@ const Hero = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center pt-16 px-4 relative overflow-hidden">
-      {/* Silk Background Animation */}
+    <section className="min-h-screen flex items-center justify-center pt-16 px-4 relative overflow-hidden bg-[#0a0a0f]">
+      {/* Fluid Background Animation */}
       <div className="absolute inset-0 z-0">
         <Silk
-          speed={5}
-          scale={1}
-          color={theme === 'dark' ? "#7B7481" : "#A8A4B0"}
-          noiseIntensity={1.5}
+          speed={3}
+          scale={1.2}
+          color="#1a1a2e"
+          noiseIntensity={2}
           rotation={0}
         />
+        {/* Gradient overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0f]/50 to-[#0a0a0f]" />
       </div>
 
       {/* Content */}
@@ -35,16 +34,8 @@ const Hero = () => {
           <img
             src={sayedImage}
             alt="Sayed Muhammed Jiyad"
-            className="w-40 h-40 md:w-52 md:h-52 rounded-full mx-auto object-cover border-4 border-primary/20 shadow-lg"
+            className="w-40 h-40 md:w-52 md:h-52 rounded-full mx-auto object-cover border-4 border-primary/20 shadow-lg ring-2 ring-primary/10"
           />
-        </div>
-
-        {/* AI Badge */}
-        <div className="mb-4 animate-fade-in">
-          <Badge variant="secondary" className="px-4 py-1.5 text-sm">
-            <Sparkles className="w-4 h-4 mr-2" />
-            AI-Powered Developer
-          </Badge>
         </div>
 
         {/* Name */}
