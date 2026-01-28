@@ -2,6 +2,8 @@ import { Github, Linkedin, Download, ArrowDown, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import sayedImage from "@/assets/sayed-profile.png";
 import Silk from "@/components/Silk";
+import FloatingParticles from "@/components/FloatingParticles";
+import TypingText from "@/components/TypingText";
 
 const Hero = () => {
   
@@ -23,6 +25,8 @@ const Hero = () => {
           noiseIntensity={2}
           rotation={0}
         />
+        {/* Floating Particles */}
+        <FloatingParticles count={40} />
         {/* Gradient overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0f]/50 to-[#0a0a0f]" />
       </div>
@@ -44,9 +48,12 @@ const Hero = () => {
           Sayed Muhammed Jiyad
         </h1>
 
-        {/* Tagline */}
+        {/* Tagline with Typing Effect */}
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 animate-fade-in">
-          Turning ideas into scalable products through strategy, UX, data, and AI automation.
+          <TypingText 
+            text="Turning ideas into scalable products through strategy, UX, data, and AI automation."
+            speed={40}
+          />
         </p>
 
         {/* Social Links */}
