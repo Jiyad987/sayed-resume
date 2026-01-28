@@ -100,12 +100,31 @@ export default {
             transform: "translateY(10px)",
           },
         },
+        "float": {
+          "0%, 100%": {
+            transform: "translateY(0) translateX(0)",
+            opacity: "0.3",
+          },
+          "25%": {
+            transform: "translateY(-20px) translateX(10px)",
+            opacity: "0.6",
+          },
+          "50%": {
+            transform: "translateY(-10px) translateX(-5px)",
+            opacity: "0.4",
+          },
+          "75%": {
+            transform: "translateY(-30px) translateX(5px)",
+            opacity: "0.5",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out forwards",
         "fade-out": "fade-out 0.3s ease-out forwards",
+        "float": "float ease-in-out infinite",
       },
     },
   },
