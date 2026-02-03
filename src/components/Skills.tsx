@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const skillCategories = [
   {
@@ -98,63 +98,58 @@ const tools = [
 const Skills = () => {
   const skillsScrollRef = useRef<HTMLDivElement>(null);
   const toolsScrollRef = useRef<HTMLDivElement>(null);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const skillsAnimationIdRef = useRef<number | null>(null);
+  const toolsAnimationIdRef = useRef<number | null>(null);
+  const skillsPositionRef = useRef(0);
+  const toolsPositionRef = useRef(0);
 
   useEffect(() => {
     const skillsContainer = skillsScrollRef.current;
     const toolsContainer = toolsScrollRef.current;
     if (!skillsContainer || !toolsContainer) return;
 
-    let skillsAnimationId: number;
-    let toolsAnimationId: number;
-    let skillsPosition = 0;
-    let toolsPosition = 0;
     const skillsSpeed = 1.2;
     const toolsSpeed = 0.8;
 
     const animateSkills = () => {
-      skillsPosition += skillsSpeed;
-      if (skillsPosition >= skillsContainer.scrollWidth / 2) {
-        skillsPosition = 0;
+      if (!isAutoScrolling) return;
+      skillsPositionRef.current += skillsSpeed;
+      if (skillsPositionRef.current >= skillsContainer.scrollWidth / 2) {
+        skillsPositionRef.current = 0;
       }
-      skillsContainer.scrollLeft = skillsPosition;
-      skillsAnimationId = requestAnimationFrame(animateSkills);
+      skillsContainer.scrollLeft = skillsPositionRef.current;
+      skillsAnimationIdRef.current = requestAnimationFrame(animateSkills);
     };
 
     const animateTools = () => {
-      toolsPosition -= toolsSpeed;
-      if (Math.abs(toolsPosition) >= toolsContainer.scrollWidth / 2) {
-        toolsPosition = 0;
+      if (!isAutoScrolling) return;
+      toolsPositionRef.current -= toolsSpeed;
+      if (Math.abs(toolsPositionRef.current) >= toolsContainer.scrollWidth / 2) {
+        toolsPositionRef.current = 0;
       }
-      toolsContainer.scrollLeft = toolsContainer.scrollWidth / 2 + toolsPosition;
-      toolsAnimationId = requestAnimationFrame(animateTools);
+      toolsContainer.scrollLeft = toolsContainer.scrollWidth / 2 + toolsPositionRef.current;
+      toolsAnimationIdRef.current = requestAnimationFrame(animateTools);
     };
 
-    skillsAnimationId = requestAnimationFrame(animateSkills);
-    toolsAnimationId = requestAnimationFrame(animateTools);
-
-    const handleSkillsEnter = () => cancelAnimationFrame(skillsAnimationId);
-    const handleSkillsLeave = () => {
-      skillsAnimationId = requestAnimationFrame(animateSkills);
-    };
-    const handleToolsEnter = () => cancelAnimationFrame(toolsAnimationId);
-    const handleToolsLeave = () => {
-      toolsAnimationId = requestAnimationFrame(animateTools);
-    };
-
-    skillsContainer.addEventListener("mouseenter", handleSkillsEnter);
-    skillsContainer.addEventListener("mouseleave", handleSkillsLeave);
-    toolsContainer.addEventListener("mouseenter", handleToolsEnter);
-    toolsContainer.addEventListener("mouseleave", handleToolsLeave);
+    if (isAutoScrolling) {
+      skillsAnimationIdRef.current = requestAnimationFrame(animateSkills);
+      toolsAnimationIdRef.current = requestAnimationFrame(animateTools);
+    }
 
     return () => {
-      cancelAnimationFrame(skillsAnimationId);
-      cancelAnimationFrame(toolsAnimationId);
-      skillsContainer.removeEventListener("mouseenter", handleSkillsEnter);
-      skillsContainer.removeEventListener("mouseleave", handleSkillsLeave);
-      toolsContainer.removeEventListener("mouseenter", handleToolsEnter);
-      toolsContainer.removeEventListener("mouseleave", handleToolsLeave);
+      if (skillsAnimationIdRef.current) cancelAnimationFrame(skillsAnimationIdRef.current);
+      if (toolsAnimationIdRef.current) cancelAnimationFrame(toolsAnimationIdRef.current);
     };
-  }, []);
+  }, [isAutoScrolling]);
+
+  const handleStopAutoScroll = () => {
+    setIsAutoScrolling(false);
+  };
+
+  const handleStartAutoScroll = () => {
+    setIsAutoScrolling(true);
+  };
 
   const duplicatedCategories = [...skillCategories, ...skillCategories];
   const duplicatedTools = [...tools, ...tools];
@@ -174,11 +169,32 @@ const Skills = () => {
           </p>
         </div>
 
+        {/* Auto-scroll toggle */}
+        <div className="flex justify-center mb-6">
+          <button
+            onClick={isAutoScrolling ? handleStopAutoScroll : handleStartAutoScroll}
+            className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 hover:border-primary/50"
+          >
+            {isAutoScrolling ? (
+              <>
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                Click to stop & scroll manually
+              </>
+            ) : (
+              <>
+                <span className="w-2 h-2 rounded-full bg-muted-foreground" />
+                Click to resume auto-scroll
+              </>
+            )}
+          </button>
+        </div>
+
         {/* Skills Cards - Scrolling Right */}
         <div
           ref={skillsScrollRef}
-          className="flex gap-6 overflow-x-hidden cursor-grab mb-12"
-          style={{ scrollBehavior: "auto" }}
+          onClick={handleStopAutoScroll}
+          className={`flex gap-6 cursor-grab mb-12 ${isAutoScrolling ? 'overflow-x-hidden' : 'overflow-x-auto scrollbar-thin scrollbar-thumb-primary/30 scrollbar-track-transparent'}`}
+          style={{ scrollBehavior: isAutoScrolling ? "auto" : "smooth" }}
         >
           {duplicatedCategories.map((category, categoryIndex) => (
             <div
@@ -224,8 +240,9 @@ const Skills = () => {
         {/* Tools - Scrolling Left (Opposite Direction) */}
         <div
           ref={toolsScrollRef}
-          className="flex gap-4 overflow-x-hidden cursor-grab py-4"
-          style={{ scrollBehavior: "auto" }}
+          onClick={handleStopAutoScroll}
+          className={`flex gap-4 cursor-grab py-4 ${isAutoScrolling ? 'overflow-x-hidden' : 'overflow-x-auto scrollbar-thin scrollbar-thumb-primary/30 scrollbar-track-transparent'}`}
+          style={{ scrollBehavior: isAutoScrolling ? "auto" : "smooth" }}
         >
           {duplicatedTools.map((tool, index) => (
             <div
