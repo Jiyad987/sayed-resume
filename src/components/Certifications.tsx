@@ -55,43 +55,48 @@ const certificates = [
 const Certifications = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [selectedCert, setSelectedCert] = useState<typeof certificates[0] | null>(null);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const animationIdRef = useRef<number | null>(null);
+  const scrollPositionRef = useRef(0);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    let animationId: number;
-    let scrollPosition = 0;
     const scrollSpeed = 1;
 
     const animate = () => {
-      scrollPosition += scrollSpeed;
+      if (!isAutoScrolling) return;
+      
+      scrollPositionRef.current += scrollSpeed;
       
       const firstSet = scrollContainer.scrollWidth / 2;
-      if (scrollPosition >= firstSet) {
-        scrollPosition = 0;
+      if (scrollPositionRef.current >= firstSet) {
+        scrollPositionRef.current = 0;
       }
       
-      scrollContainer.scrollLeft = scrollPosition;
-      animationId = requestAnimationFrame(animate);
+      scrollContainer.scrollLeft = scrollPositionRef.current;
+      animationIdRef.current = requestAnimationFrame(animate);
     };
 
-    animationId = requestAnimationFrame(animate);
-
-    const handleMouseEnter = () => cancelAnimationFrame(animationId);
-    const handleMouseLeave = () => {
-      animationId = requestAnimationFrame(animate);
-    };
-
-    scrollContainer.addEventListener("mouseenter", handleMouseEnter);
-    scrollContainer.addEventListener("mouseleave", handleMouseLeave);
+    if (isAutoScrolling) {
+      animationIdRef.current = requestAnimationFrame(animate);
+    }
 
     return () => {
-      cancelAnimationFrame(animationId);
-      scrollContainer.removeEventListener("mouseenter", handleMouseEnter);
-      scrollContainer.removeEventListener("mouseleave", handleMouseLeave);
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+      }
     };
-  }, []);
+  }, [isAutoScrolling]);
+
+  const handleStopAutoScroll = () => {
+    setIsAutoScrolling(false);
+  };
+
+  const handleStartAutoScroll = () => {
+    setIsAutoScrolling(true);
+  };
 
   const duplicatedCerts = [...certificates, ...certificates];
 
@@ -110,16 +115,40 @@ const Certifications = () => {
           </p>
         </div>
 
+        {/* Auto-scroll toggle */}
+        <div className="flex justify-center mb-4">
+          <button
+            onClick={isAutoScrolling ? handleStopAutoScroll : handleStartAutoScroll}
+            className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 hover:border-primary/50"
+          >
+            {isAutoScrolling ? (
+              <>
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                Click to stop & scroll manually
+              </>
+            ) : (
+              <>
+                <span className="w-2 h-2 rounded-full bg-muted-foreground" />
+                Click to resume auto-scroll
+              </>
+            )}
+          </button>
+        </div>
+
         {/* Scrolling Certificates */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-hidden cursor-pointer"
-          style={{ scrollBehavior: "auto" }}
+          onClick={handleStopAutoScroll}
+          className={`flex gap-6 cursor-pointer ${isAutoScrolling ? 'overflow-x-hidden' : 'overflow-x-auto scrollbar-thin scrollbar-thumb-primary/30 scrollbar-track-transparent'}`}
+          style={{ scrollBehavior: isAutoScrolling ? "auto" : "smooth" }}
         >
           {duplicatedCerts.map((cert, index) => (
             <div
               key={`${cert.title}-${index}`}
-              onClick={() => setSelectedCert(cert)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedCert(cert);
+              }}
               className="flex-shrink-0 w-72 bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 hover:scale-105 group cursor-pointer"
             >
               <div className="h-44 overflow-hidden bg-background">
