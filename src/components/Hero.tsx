@@ -1,4 +1,4 @@
-import { Github, Linkedin, Download, ArrowDown, Rocket } from "lucide-react";
+import { Github, Linkedin, Download, ArrowDown, Rocket, Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import sayedImage from "@/assets/sayed-profile.png";
 import Silk from "@/components/Silk";
@@ -81,6 +81,12 @@ const Hero = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in">
           <Button asChild size="lg" className="gap-2">
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <Eye className="h-4 w-4" />
+              View Resume
+            </a>
+          </Button>
+          <Button asChild variant="outline" size="lg" className="gap-2">
             <a href="/resume.pdf" download="Sayed_Muhammed_Jiyad_Resume.pdf">
               <Download className="h-4 w-4" />
               Download Resume
