@@ -7,10 +7,14 @@ const About = () => {
         </h2>
         <div className="bg-card border border-border rounded-lg p-6 md:p-8">
           <p className="text-muted-foreground leading-relaxed mb-6">
-            I am a multidisciplinary product and analytics professional with experience across 
-            Product Management, Business Analysis, AI Automation, Power BI, and UI/UX Design. 
-            I specialize in turning complex business needs into data-driven, user-centered 
-            solutions that deliver measurable impact.
+            I am the <strong className="text-foreground">Founder & CEO of Boolean Technologies</strong> (Jan 2026 – Present), 
+            a service-based startup that develops websites, ERP systems, and custom software solutions for multiple businesses. 
+            I specialize in turning complex business needs into data-driven, user-centered solutions that deliver measurable impact.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-6">
+            Across different client projects, I have worn multiple hats — <strong className="text-foreground">Sales Lead, Developer, 
+            Business Analyst, and Product Manager</strong> — giving me a 360° view of how technology, business, and design intersect 
+            to build products that actually solve problems.
           </p>
           <p className="text-muted-foreground leading-relaxed">
             Working across the full product lifecycle, I bridge strategy, data, technology, 
