@@ -4,6 +4,7 @@ import sayedImage from "@/assets/sayed-profile.png";
 import Silk from "@/components/Silk";
 import FloatingParticles from "@/components/FloatingParticles";
 import TypingText from "@/components/TypingText";
+import CyclingVentures from "@/components/CyclingVentures";
 
 const Hero = () => {
   
@@ -77,6 +78,9 @@ const Hero = () => {
             <Github className="h-5 w-5 text-foreground" />
           </a>
         </div>
+
+        {/* Cycling ventures */}
+        <CyclingVentures />
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in">
