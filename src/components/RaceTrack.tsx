@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { Flag, Trophy, Briefcase, GraduationCap, Code2, Award, User, Mail } from "lucide-react";
+import { Flag, Trophy, Briefcase, GraduationCap, Code2, Award, User, Mail, Car } from "lucide-react";
 
 const icons = {
   start: Flag,
@@ -77,50 +77,59 @@ const RaceTrack = ({ children }: RaceTrackProps) => {
         className="pointer-events-none absolute top-0 bottom-0 z-0"
         style={{ left: "calc(1rem - 3px)" }}
       >
-        <div className="relative h-full w-[6px] md:hidden">
-          <div className="absolute inset-0 rounded-full bg-secondary/70 border-x border-border" />
+        {/* Mobile road */}
+        <div className="relative h-full w-[14px] md:hidden">
+          <div className="absolute inset-0 rounded-sm bg-zinc-800 border-x-2 border-zinc-200/80" />
           <div
-            className="absolute inset-0 mx-auto w-[2px]"
+            className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px]"
             style={{
               backgroundImage:
-                "repeating-linear-gradient(to bottom, hsl(var(--primary)) 0 10px, transparent 10px 22px)",
-              opacity: 0.6,
+                "repeating-linear-gradient(to bottom, #fbbf24 0 10px, transparent 10px 22px)",
             }}
           />
+          {/* Car */}
           <div
             className="absolute left-1/2 -translate-x-1/2 transition-[top] duration-100"
             style={{ top: `${progress}%` }}
           >
-            <div className="-translate-y-1/2 h-3 w-3 rounded-full bg-primary shadow-[0_0_14px_hsl(var(--primary))]" />
+            <Car
+              className="-translate-y-1/2 h-5 w-5 text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.9)]"
+              fill="currentColor"
+              strokeWidth={1.5}
+            />
           </div>
         </div>
       </div>
 
-      {/* Desktop track */}
+      {/* Desktop road */}
       <div
         aria-hidden
         className="hidden md:block pointer-events-none absolute top-0 bottom-0 z-0"
-        style={{ left: "calc(2rem - 4px)" }}
+        style={{ left: "calc(2rem - 9px)" }}
       >
-        <div className="relative h-full w-[8px]">
-          <div className="absolute inset-0 rounded-full bg-secondary/70 border-x border-border" />
+        <div className="relative h-full w-[18px]">
+          <div className="absolute inset-0 rounded-sm bg-zinc-800 border-x-2 border-zinc-200/80" />
           <div
-            className="absolute inset-0 mx-auto w-[2px]"
+            className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[2px]"
             style={{
               backgroundImage:
-                "repeating-linear-gradient(to bottom, hsl(var(--primary)) 0 12px, transparent 12px 26px)",
-              opacity: 0.55,
+                "repeating-linear-gradient(to bottom, #fbbf24 0 14px, transparent 14px 28px)",
             }}
           />
-          {/* Progress car */}
+          {/* Red car following the lap */}
           <div
             className="absolute left-1/2 -translate-x-1/2 transition-[top] duration-100"
             style={{ top: `${progress}%` }}
           >
-            <div className="-translate-y-1/2 h-4 w-4 rounded-full bg-primary shadow-[0_0_18px_hsl(var(--primary))]" />
+            <Car
+              className="-translate-y-1/2 h-6 w-6 text-red-500 drop-shadow-[0_0_10px_rgba(239,68,68,0.9)]"
+              fill="currentColor"
+              strokeWidth={1.5}
+            />
           </div>
         </div>
       </div>
+
 
       <div className="relative z-10">{children}</div>
     </div>
