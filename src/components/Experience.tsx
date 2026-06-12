@@ -10,6 +10,19 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
+    title: "CEO & Founder",
+    company: "Boolean Technologies",
+    companyUrl: "https://booleantechnologies.in",
+    period: "January 2026 – Present",
+    responsibilities: [
+      "Founded and lead a service-based startup delivering websites, ERP systems, and custom software solutions for multiple businesses",
+      "Drive business development and client acquisition as Sales Lead, managing end-to-end sales pipelines and client relationships",
+      "Hands-on development of client projects across web and software solutions, ensuring quality and timely delivery",
+      "Act as Business Analyst to understand client requirements, define scope, and translate business needs into technical specifications",
+      "Oversee product strategy and execution as Product Manager, aligning deliverables with client goals and market demands",
+    ],
+  },
+  {
     title: "Product Manager",
     company: "Kissa App",
     companyUrl: "https://kissa.app",
