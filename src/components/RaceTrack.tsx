@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { Flag, Trophy, Briefcase, GraduationCap, Code2, Award, User, Mail } from "lucide-react";
 
-const icons: Record<string, typeof Flag> = {
+const icons = {
   start: Flag,
   about: User,
   experience: Briefcase,
@@ -11,41 +11,38 @@ const icons: Record<string, typeof Flag> = {
   education: GraduationCap,
   contact: Mail,
   finish: Flag,
-};
+} as const;
 
 interface MilestoneProps {
   id: keyof typeof icons;
   label: string;
-  side?: "left" | "right";
   children?: ReactNode;
 }
 
-export const Milestone = ({ id, label, side = "left", children }: MilestoneProps) => {
+// Track sits on the LEFT edge. Each milestone marker is anchored on the track.
+export const Milestone = ({ id, label, children }: MilestoneProps) => {
   const Icon = icons[id] || Flag;
   return (
     <div className="relative">
-      {/* Marker on the track */}
-      <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-10 z-20 items-center justify-center">
+      {/* Marker on the track (left rail) */}
+      <div className="absolute left-4 md:left-8 top-10 z-20 -translate-x-1/2">
         <div className="relative">
           <div className="absolute inset-0 rounded-full bg-primary/40 blur-md animate-pulse" />
-          <div className="relative h-12 w-12 rounded-full bg-background border-2 border-primary flex items-center justify-center shadow-lg">
-            <Icon className="h-5 w-5 text-primary" />
+          <div className="relative h-10 w-10 md:h-12 md:w-12 rounded-full bg-background border-2 border-primary flex items-center justify-center shadow-lg">
+            <Icon className="h-4 w-4 md:h-5 md:w-5 text-primary" />
           </div>
         </div>
       </div>
 
-      {/* Side flag label */}
-      <div
-        className={`hidden md:block absolute top-12 z-20 ${
-          side === "left" ? "right-[calc(50%+2.5rem)]" : "left-[calc(50%+2.5rem)]"
-        }`}
-      >
+      {/* Flag label next to marker */}
+      <div className="hidden md:block absolute left-20 top-12 z-20">
         <div className="px-3 py-1 rounded-md bg-card border border-border text-xs font-semibold uppercase tracking-wider text-primary shadow-sm">
           {label}
         </div>
       </div>
 
-      {children}
+      {/* Content shifted right to clear the track */}
+      <div className="pl-12 md:pl-24">{children}</div>
     </div>
   );
 };
@@ -74,43 +71,55 @@ const RaceTrack = ({ children }: RaceTrackProps) => {
 
   return (
     <div ref={trackRef} className="relative">
-      {/* Track line (desktop) */}
+      {/* Track rail on the LEFT side */}
       <div
         aria-hidden
-        className="hidden md:block pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[6px] z-0"
+        className="pointer-events-none absolute top-0 bottom-0 z-0"
+        style={{ left: "calc(1rem - 3px)" }}
       >
-        <div className="absolute inset-0 rounded-full bg-secondary/60 border-x border-border" />
-        {/* Dashed center line */}
-        <div
-          className="absolute inset-x-0 top-0 bottom-0 mx-auto w-[2px]"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(to bottom, hsl(var(--primary)) 0 12px, transparent 12px 26px)",
-            opacity: 0.55,
-          }}
-        />
-        {/* Progress car */}
-        <div
-          className="absolute left-1/2 -translate-x-1/2 transition-[top] duration-100"
-          style={{ top: `calc(${progress}% )` }}
-        >
-          <div className="-translate-y-1/2 h-4 w-4 rounded-full bg-primary shadow-[0_0_18px_hsl(var(--primary))]" />
+        <div className="relative h-full w-[6px] md:hidden">
+          <div className="absolute inset-0 rounded-full bg-secondary/70 border-x border-border" />
+          <div
+            className="absolute inset-0 mx-auto w-[2px]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(to bottom, hsl(var(--primary)) 0 10px, transparent 10px 22px)",
+              opacity: 0.6,
+            }}
+          />
+          <div
+            className="absolute left-1/2 -translate-x-1/2 transition-[top] duration-100"
+            style={{ top: `${progress}%` }}
+          >
+            <div className="-translate-y-1/2 h-3 w-3 rounded-full bg-primary shadow-[0_0_14px_hsl(var(--primary))]" />
+          </div>
         </div>
       </div>
 
-      {/* Mobile vertical line */}
+      {/* Desktop track */}
       <div
         aria-hidden
-        className="md:hidden pointer-events-none absolute left-4 top-0 bottom-0 w-[3px] bg-secondary z-0"
+        className="hidden md:block pointer-events-none absolute top-0 bottom-0 z-0"
+        style={{ left: "calc(2rem - 4px)" }}
       >
-        <div
-          className="absolute inset-0 w-[2px] mx-auto"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(to bottom, hsl(var(--primary)) 0 8px, transparent 8px 18px)",
-            opacity: 0.6,
-          }}
-        />
+        <div className="relative h-full w-[8px]">
+          <div className="absolute inset-0 rounded-full bg-secondary/70 border-x border-border" />
+          <div
+            className="absolute inset-0 mx-auto w-[2px]"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(to bottom, hsl(var(--primary)) 0 12px, transparent 12px 26px)",
+              opacity: 0.55,
+            }}
+          />
+          {/* Progress car */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 transition-[top] duration-100"
+            style={{ top: `${progress}%` }}
+          >
+            <div className="-translate-y-1/2 h-4 w-4 rounded-full bg-primary shadow-[0_0_18px_hsl(var(--primary))]" />
+          </div>
+        </div>
       </div>
 
       <div className="relative z-10">{children}</div>
