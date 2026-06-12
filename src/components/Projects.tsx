@@ -69,7 +69,7 @@ const appProjects: Project[] = [
     tags: ["Marketplace", "E-commerce", "React", "Supabase"],
     tools: ["Lovable", "Supabase", "Antigravity", "TypeScript"],
     links: {
-      demo: "https://buy-bright-sell.lovable.app",
+      demo: "https://templately.shop",
       github: "https://github.com/developer-zayed/digital-marketplace-hub",
       competitive: "https://templately-competitive-a-jl6xs5j.gamma.site/",
       productOverview: "https://product-overview-hkmxvkz.gamma.site/",
@@ -97,14 +97,14 @@ const appProjects: Project[] = [
   },
   {
     id: 3,
-    title: "Career Boost",
+    title: "Fix My Careers",
     subtitle: "AI-Powered Career Platform",
     description: "An all-in-one AI-powered career platform that helps job seekers build ATS-optimized resumes, find relevant jobs, analyze job fit, prepare for interviews, optimize LinkedIn profiles, and access practical career insights.",
     icon: Briefcase,
     tags: ["AI", "Career", "Resume Builder", "Job Search"],
     tools: ["Lovable", "OpenAI API"],
     links: {
-      mvp: "https://carrerboost.lovable.app",
+      mvp: "https://www.fixmycareers.in",
       github: "https://github.com/Jiyad987/carrerboost.git",
     },
     category: "apps",
