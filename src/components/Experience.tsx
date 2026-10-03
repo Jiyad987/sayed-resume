@@ -114,6 +114,34 @@ const Experience = () => {
                   </li>
                 ))}
               </ul>
+              {exp.projects && exp.projects.length > 0 && (
+                <div className="mt-6 pt-5 border-t border-border/60">
+                  <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+                    Client Projects Delivered
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {exp.projects.map((project) => (
+                      <a
+                        key={project.name}
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group bg-secondary/50 border border-border rounded-lg p-4 transition-all hover:border-primary/50 hover:bg-primary/10 text-left"
+                      >
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <span className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">
+                            {project.name}
+                          </span>
+                          <ExternalLink className="h-3.5 w-3.5 text-primary flex-shrink-0" />
+                        </div>
+                        <p className="text-muted-foreground text-xs leading-relaxed">
+                          {project.description}
+                        </p>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
