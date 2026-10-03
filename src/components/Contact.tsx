@@ -11,7 +11,7 @@ const Contact = () => {
           I'm always open to discussing product management, analytics, or potential collaborations.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
           {/* Email */}
           <a
             href="mailto:sayedmuhammedjiyad13@gmail.com"
@@ -28,7 +28,7 @@ const Contact = () => {
             </div>
           </a>
 
-          {/* Phone */}
+          {/* Phone - India */}
           <a
             href="tel:+918714180384"
             className="bg-card border border-border rounded-lg p-6 flex items-center gap-4 transition-all hover:border-primary/50 group"
@@ -37,8 +37,22 @@ const Contact = () => {
               <Phone className="h-5 w-5 text-primary" />
             </div>
             <div className="text-left">
-              <p className="text-sm text-muted-foreground">Phone</p>
+              <p className="text-sm text-muted-foreground">Phone · India</p>
               <p className="text-foreground font-medium">+91 8714180384</p>
+            </div>
+          </a>
+
+          {/* Phone - UAE */}
+          <a
+            href="tel:+971523229124"
+            className="bg-card border border-border rounded-lg p-6 flex items-center gap-4 transition-all hover:border-primary/50 group"
+          >
+            <div className="p-3 rounded-full bg-secondary group-hover:bg-primary/20 transition-colors flex-shrink-0">
+              <Phone className="h-5 w-5 text-primary" />
+            </div>
+            <div className="text-left">
+              <p className="text-sm text-muted-foreground">Phone · UAE</p>
+              <p className="text-foreground font-medium">+971 523229124</p>
             </div>
           </a>
         </div>

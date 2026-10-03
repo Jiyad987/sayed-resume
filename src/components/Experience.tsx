@@ -1,11 +1,18 @@
 import { ExternalLink } from "lucide-react";
 
+interface ExperienceProject {
+  name: string;
+  url: string;
+  description: string;
+}
+
 interface ExperienceItem {
   title: string;
   company: string;
   companyUrl: string;
   period: string;
   responsibilities: string[];
+  projects?: ExperienceProject[];
 }
 
 const experiences: ExperienceItem[] = [
@@ -20,6 +27,20 @@ const experiences: ExperienceItem[] = [
       "Hands-on development of client projects across web and software solutions, ensuring quality and timely delivery",
       "Act as Business Analyst to understand client requirements, define scope, and translate business needs into technical specifications",
       "Oversee product strategy and execution as Product Manager, aligning deliverables with client goals and market demands",
+    ],
+    projects: [
+      {
+        name: "Digital Menu Card",
+        url: "https://arabian-palace-menu.pages.dev/",
+        description:
+          "Digital menu platform built for Arabian Palace, deployed across multiple hotel locations for modern, contactless ordering",
+      },
+      {
+        name: "Minnaram Boutique",
+        url: "https://minnaram-boutique.vercel.app/",
+        description:
+          "Digitalized a boutique business with a clean online storefront to showcase products and reach more customers",
+      },
     ],
   },
   {
