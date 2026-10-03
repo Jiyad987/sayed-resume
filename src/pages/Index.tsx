@@ -8,57 +8,19 @@ import Certifications from "@/components/Certifications";
 import Education from "@/components/Education";
 import Contact from "@/components/Contact";
 import ScrollReveal from "@/components/ScrollReveal";
-import RaceTrack, { Milestone } from "@/components/RaceTrack";
-import { Flag } from "lucide-react";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
-
-      {/* Start line */}
-      <div className="relative py-6 flex items-center justify-center gap-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
-        <Flag className="h-4 w-4 text-primary" />
-        <span>Start · Career Grid</span>
-        <Flag className="h-4 w-4 text-primary" />
-      </div>
-
-      <RaceTrack>
-        <Milestone id="about" label="Lap 1 · About">
-          <ScrollReveal animation="fade-up"><About /></ScrollReveal>
-        </Milestone>
-        <Milestone id="experience" label="Lap 2 · Experience">
-          <ScrollReveal animation="fade-up" delay={100}><Experience /></ScrollReveal>
-        </Milestone>
-        <Milestone id="skills" label="Lap 3 · Skills">
-          <ScrollReveal animation="fade-up" delay={100}><Skills /></ScrollReveal>
-        </Milestone>
-        <Milestone id="projects" label="Lap 4 · Projects">
-          <ScrollReveal animation="scale" delay={100}><Projects /></ScrollReveal>
-        </Milestone>
-        <Milestone id="certifications" label="Lap 5 · Certifications">
-          <ScrollReveal animation="fade-up" delay={100}><Certifications /></ScrollReveal>
-        </Milestone>
-        <Milestone id="education" label="Lap 6 · Education">
-          <ScrollReveal animation="fade-up" delay={100}><Education /></ScrollReveal>
-        </Milestone>
-        <Milestone id="contact" label="Finish · Contact">
-          <ScrollReveal animation="fade-up" delay={100}><Contact /></ScrollReveal>
-        </Milestone>
-      </RaceTrack>
-
-      {/* Finish line */}
-      <div
-        className="h-6 w-full"
-        style={{
-          backgroundImage:
-            "repeating-conic-gradient(hsl(var(--foreground)) 0% 25%, hsl(var(--background)) 0% 50%)",
-          backgroundSize: "20px 20px",
-          opacity: 0.85,
-        }}
-        aria-hidden
-      />
+      <ScrollReveal animation="fade-up"><About /></ScrollReveal>
+      <ScrollReveal animation="fade-up" delay={100}><Experience /></ScrollReveal>
+      <ScrollReveal animation="fade-up" delay={100}><Skills /></ScrollReveal>
+      <ScrollReveal animation="scale" delay={100}><Projects /></ScrollReveal>
+      <ScrollReveal animation="fade-up" delay={100}><Certifications /></ScrollReveal>
+      <ScrollReveal animation="fade-up" delay={100}><Education /></ScrollReveal>
+      <ScrollReveal animation="fade-up" delay={100}><Contact /></ScrollReveal>
     </div>
   );
 };
